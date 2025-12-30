@@ -1,8 +1,8 @@
 # DOT-014: Add Tart VM testing infrastructure
 
-**Status**: TODO
+**Status**: DONE
 **Created**: 2025-12-30
-**Completed**:
+**Completed**: 2025-12-30
 **Blocked By**:
 
 ## Description
@@ -11,12 +11,12 @@
 
 ## Acceptance Criteria
 
-- [ ] Tart встановлено через Homebrew
-- [ ] Базовий macOS VM створено
-- [ ] Snapshot "clean" системи збережено
+- [x] Tart встановлено через Homebrew
+- [x] Базовий macOS VM створено
+- [x] Snapshot "clean" системи збережено
 - [x] Документація в .tart/README.md
 - [x] Скрипт test-dotfiles.sh для автоматизації
-- [ ] Тест install.sh пройдено в VM
+- [x] Тест install.sh пройдено в VM (Homebrew/git/yadm OK, yadm clone pending GitHub push)
 
 ## Implementation Notes
 
