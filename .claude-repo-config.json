@@ -1,0 +1,118 @@
+{
+  "repository_type": "yadm_with_git_working_copy",
+  "description": "Personal dotfiles managed by yadm + Git working copy for documentation",
+
+  "branches": {
+    "main": {
+      "purpose": "Production dotfiles for $HOME deployment",
+      "tool": "yadm",
+      "files": "Only files that belong in $HOME",
+      "commands": {
+        "add": "yadm add <file>",
+        "status": "yadm status",
+        "commit": "yadm commit -m \"<message>\"",
+        "push": "yadm push"
+      }
+    },
+    "docs": {
+      "purpose": "Documentation and guides for Claude instances",
+      "tool": "git",
+      "files": "CLAUDE.md, README.md, guides, instructions",
+      "commands": {
+        "add": "git add <file>",
+        "status": "git status",
+        "commit": "git commit -m \"<message>\"",
+        "push": "git push"
+      }
+    }
+  },
+
+  "commit_guidelines": {
+    "atomicity": "One logical change per commit",
+    "frequency": "After each logical change that is independently testable",
+    "definition": "A change that modifies ONE aspect and can be verified as working",
+    "format": "DOT-XXX: Short description (max 50 characters)",
+    "story_id_pattern": "DOT-{number}",
+    "max_subject_length": 50,
+    "mood": "imperative",
+    "co_authored_by": false,
+    "multi_line_body": false,
+    "examples": [
+      "DOT-001: Add install.sh for fresh macOS",
+      "DOT-006: Add encryption manifest",
+      "DOT-012: Encrypt AI tool configs"
+    ],
+    "anti_patterns": [
+      "Update configs (no story ID)",
+      "DOT-001: Add .mcp.json with GitHub MCP server config and update .zshrc (too long, multiple changes)",
+      "WIP: configuring (incomplete)"
+    ]
+  },
+
+  "issue_tracking": {
+    "system": "file-based",
+    "directory": ".issues/",
+    "naming": "DOT-{number}-{title}.md",
+    "template": ".issues/_template.md",
+    "statuses": ["TODO", "IN_PROGRESS", "DONE", "BLOCKED"],
+    "workflow": {
+      "before_commit": "Check if issue exists for this work",
+      "commit_format": "DOT-{issue_id}: {short_message}",
+      "create_issue": "For any new feature or significant change",
+      "update_status": "When starting, blocking, or completing work"
+    }
+  },
+
+  "workflow_rules": {
+    "branch_check": "Always run: git branch (before any changes)",
+    "tool_selection": {
+      "if_on_main": "Use only yadm for home directory files",
+      "if_on_docs": "Use only git for documentation files",
+      "never_mix": "Do not use git add on main or yadm on docs"
+    },
+    "push_workflow": {
+      "on_main": "yadm push → goes to bare repo in $HOME",
+      "on_docs": "git push → goes to GitHub",
+      "user_syncs": "User runs: git pull (from bare) then git push (to GitHub)"
+    }
+  },
+
+  "repository_structure": {
+    "main_repo": "https://github.com/stavytskyi/.dotfiles-yadm.git",
+    "bare_repo": "~/.local/share/yadm/repo.git (in $HOME)",
+    "working_copy": "/Users/Maksym_Stavytskyi/claude-code/.dotfiles-yadm (for claude instances)"
+  },
+
+  "claude_instance_notes": {
+    "note_1": "This is a testing/working copy, not the actual home directory",
+    "note_2": "You work here, user syncs to GitHub",
+    "note_3": "You modify files in this repo, not directly in $HOME",
+    "note_4": "Follow branch-specific rules (git branch first!)"
+  },
+
+  "claude_autonomy": {
+    "instructions": "Claude instances should work autonomously in this repository",
+    "execute_commands": true,
+    "explanation": "You can run bash, git, and other commands without asking permission",
+    "workflow": [
+      "Check current branch: git branch",
+      "Review relevant issues in .issues/ directory",
+      "Make changes following issue-driven workflow",
+      "Use git add and git commit automatically",
+      "Follow commit format: DOT-XXX: message"
+    ],
+    "permissions": {
+      "run_bash": "Yes - execute any bash commands needed",
+      "modify_files": "Yes - edit files as needed for tasks",
+      "create_commits": "Yes - commit atomically with each logical change",
+      "run_git_commands": "Yes - git add, commit, push as needed"
+    },
+    "issue_workflow": {
+      "before_starting": "Find matching issue in .issues/ or create new one",
+      "during_work": "Mark issue as IN_PROGRESS, update acceptance criteria",
+      "when_done": "Mark issue as DONE, link commit hash in Related Commits",
+      "fail_safe": "If unsure, create issue first and ask user for confirmation"
+    },
+    "context": "User has approved autonomous work in this repository"
+  }
+}
