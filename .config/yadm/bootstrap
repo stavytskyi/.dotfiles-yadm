@@ -1,0 +1,38 @@
+#!/bin/bash
+set -e
+
+echo "=== Yadm Bootstrap ==="
+
+# Decrypt secrets (if archive exists)
+if [ -f "$HOME/.local/share/yadm/archive" ]; then
+    echo "Encrypted archive found. Decrypting..."
+    if yadm decrypt; then
+        echo "✓ Secrets decrypted successfully"
+    else
+        echo "! Decryption failed - you may need to enter correct password"
+        exit 1
+    fi
+else
+    echo "No encrypted archive found (normal for fresh setup)"
+fi
+
+# Check Homebrew
+if ! command -v brew &> /dev/null; then
+    echo "! Homebrew not found - run install.sh first"
+    exit 1
+fi
+
+# Install AI tools (optional)
+read -p "Install Claude Code? (y/n) " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    if ! brew list --cask claude &> /dev/null; then
+        echo "Installing Claude Code..."
+        brew install --cask claude
+        echo "✓ Claude Code installed"
+    else
+        echo "✓ Claude Code already installed"
+    fi
+fi
+
+echo "✓ Bootstrap complete"
