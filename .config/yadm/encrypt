@@ -1,0 +1,4 @@
+# Files to encrypt with yadm
+.mcp.json
+.secrets
+.config/claude/settings.json
